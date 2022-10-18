@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { throwError } from 'rxjs';
 
 import { AuthService } from './auth.service';
 
@@ -37,8 +38,16 @@ export class AuthComponent implements OnInit {
           this.isLoading = false;
         },
         error: (e) => {
+          this.error = 'An unknown error occurred!';
           console.error(e);
-          this.error = 'An error occurred!';
+          if(!e.error || !e.error.error) {
+            return throwError(() => new Error(this.error));
+          }
+          switch (e.error.error.message) {
+            case 'EMAIL_EXISTS':
+              this.error = 'This email already exists!';
+          }
+          throwError(() => new Error(this.error));
           this.isLoading = false;
         },
         complete: () => console.info('complete')
