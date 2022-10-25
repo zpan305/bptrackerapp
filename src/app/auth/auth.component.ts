@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
 
@@ -13,9 +14,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   error: string = null;
 
-  constructor(private authService: AuthService) {
-
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -34,6 +33,7 @@ export class AuthComponent implements OnInit {
         next: (v) => {
           console.log(v);
           this.isLoading = false;
+          this.router.navigate(['/patient']); // both successful login and signup will navigate patient to their own page
         },
         error: (e) => {
           this.error = 'An unknown error occurred!';
@@ -62,6 +62,7 @@ export class AuthComponent implements OnInit {
         next: (v) => {
           console.log(v);
           this.isLoading = false;
+          this.router.navigate(['/patient']);
         },
         error: (e) => {
           this.error = 'An unknown error occurred!';
