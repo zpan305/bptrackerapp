@@ -9,6 +9,8 @@ import { AuthComponent } from './auth/auth.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { PatientComponent } from './patient/patient.component';
 
+import { EmailService } from './shared/email.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,7 @@ import { PatientComponent } from './patient/patient.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [EmailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

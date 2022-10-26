@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EmailService } from '../shared/email.service';
+
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientComponent implements OnInit {
 
-  constructor() { }
+  patientEmail: string;
+
+  constructor(private emailService: EmailService) { }
 
   ngOnInit(): void {
+    this.patientEmail = this.emailService.patientEmail;
   }
-
 }

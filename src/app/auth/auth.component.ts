@@ -4,6 +4,7 @@ import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
+import { EmailService } from '../shared/email.service';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +15,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   error: string = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private emailService: EmailService) {}
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -29,6 +30,8 @@ export class AuthComponent implements OnInit {
 
     this.isLoading = true;
     if(this.isLoginMode) {
+      this.emailService.patientEmail = email;
+
       this.authService.logIn(email, password).subscribe({
         next: (v) => {
           console.log(v);
@@ -62,7 +65,6 @@ export class AuthComponent implements OnInit {
         next: (v) => {
           console.log(v);
           this.isLoading = false;
-          this.router.navigate(['/patient']);
         },
         error: (e) => {
           this.error = 'An unknown error occurred!';
