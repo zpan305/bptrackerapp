@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 import { EmailService } from '../shared/email.service';
 
@@ -40,5 +41,20 @@ export class PatientComponent implements OnInit {
       },
       complete: () => console.info('complete')
     });
+  }
+
+  onSubmit(form: NgForm) {
+    if (!form.valid) {
+      return;
+    }
+    this.patientName = form.value.name;
+    this.patientGender = form.value.gender;
+    this.patientAge = form.value.age;
+
+    this.http.put('https://high-blood-pressure-tracker-default-rtdb.firebaseio.com/' + this.patientEmail.replace('.', '') + '.json', {
+      'gender': 'male'
+    }).subscribe(res=>console.log(res));
+
+    form.reset();
   }
 }
