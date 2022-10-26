@@ -30,16 +30,17 @@ export class PatientComponent implements OnInit {
   }
 
   fetchPatientData() {
-    this.http.get('https://high-blood-pressure-tracker-default-rtdb.firebaseio.com/' + this.patientEmail)
-    .subscribe({
-      next: (v) => {
-        console.log(v);
-        this.patientExist = true;
-      },
-      error: (e) => {
+    this.http.get('https://high-blood-pressure-tracker-default-rtdb.firebaseio.com/' + this.patientEmail.replace('.', '') + '.json')
+    .subscribe(res => {
+      if (!res) {
         this.patientExist = false;
-      },
-      complete: () => console.info('complete')
+      }
+      else{
+        this.patientExist = true;
+        this.patientName = res['Name'];
+        this.patientAge = res['Age'];
+        this.patientGender = res['Gender'];
+      }
     });
   }
 
@@ -52,8 +53,13 @@ export class PatientComponent implements OnInit {
     this.patientAge = form.value.age;
 
     this.http.put('https://high-blood-pressure-tracker-default-rtdb.firebaseio.com/' + this.patientEmail.replace('.', '') + '.json', {
-      'gender': 'male'
-    }).subscribe(res=>console.log(res));
+      "Name": this.patientName,
+      "Gender": this.patientGender,
+      "Age": this.patientAge
+    }).subscribe(res => {
+      this.patientExist = true;
+      console.log(res);
+    });
 
     form.reset();
   }
