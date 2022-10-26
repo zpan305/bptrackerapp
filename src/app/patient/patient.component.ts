@@ -10,6 +10,9 @@ import { EmailService } from '../shared/email.service';
 })
 export class PatientComponent implements OnInit {
 
+  patientName: string;
+  patientGender: string;
+  patientAge: string;
   patientEmail: string;
   patientExist: boolean = true;
 
