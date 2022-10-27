@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { EmailService } from '../shared/email.service';
 
@@ -17,7 +18,7 @@ export class PatientComponent implements OnInit {
   patientEmail: string;
   patientExist: boolean = true;
 
-  constructor(private emailService: EmailService, private http: HttpClient) {}
+  constructor(private emailService: EmailService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.patientEmail = this.emailService.patientEmail;
@@ -62,5 +63,9 @@ export class PatientComponent implements OnInit {
     });
 
     form.reset();
+  }
+
+  onClick() {
+    this.router.navigate(['/auth']);
   }
 }
