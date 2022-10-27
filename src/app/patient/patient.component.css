@@ -1,6 +1,6 @@
 .card {
     margin: 20px auto;
-    width: 50%;
+    width: 35%;
     padding: 10px;
     background-color: aquamarine;
 }
@@ -11,4 +11,8 @@
 
 .list-group-item {
     background-color: #0dcaf0;
+}
+
+.logout {
+    text-align: center;
 }

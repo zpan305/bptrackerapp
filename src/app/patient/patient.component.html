@@ -1,9 +1,12 @@
-<div class="card text-center">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><h2>Patient Name: {{ patientName }}</h2></li>
-      <li class="list-group-item"><h2>Patient Gender: {{ patientGender }}</h2></li>
-      <li class="list-group-item"><h2>Patient Age: {{ patientAge }}</h2></li>
-    </ul>
+<div class="logout" *ngIf="patientExist">
+    <div class="card text-center">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><h2>Patient Name: {{ patientName }}</h2></li>
+          <li class="list-group-item"><h2>Patient Gender: {{ patientGender }}</h2></li>
+          <li class="list-group-item"><h2>Patient Age: {{ patientAge }}</h2></li>
+        </ul>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg">Logout</button>
 </div>
 
 
