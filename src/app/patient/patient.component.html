@@ -11,7 +11,7 @@
 
 
 
-<div *ngIf="!patientExist" class="row">
+<div *ngIf="!patientExist" class="row intake">
     <div class="col-xs-12 col-md-3 col-md-offset-4">
       <h4 class="text-primary">Please enter the following information!</h4>
       <form #patientForm="ngForm" (ngSubmit)="onSubmit(patientForm)">
