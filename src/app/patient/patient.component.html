@@ -1,12 +1,36 @@
-<div class="logout" *ngIf="patientExist">
-    <div class="card text-center">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><h2>Patient Name: {{ patientName }}</h2></li>
-          <li class="list-group-item"><h2>Patient Gender: {{ patientGender }}</h2></li>
-          <li class="list-group-item"><h2>Patient Age: {{ patientAge }}</h2></li>
-        </ul>
+<div *ngIf="patientExist">
+    <div class="logout">
+        <h3>Patient Profile</h3>
+        <div class="card text-center">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><h3>Patient Name: {{ patientName }}</h3></li>
+              <li class="list-group-item"><h3>Patient Gender: {{ patientGender }}</h3></li>
+              <li class="list-group-item"><h3>Patient Age: {{ patientAge }}</h3></li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-primary btn-lg" (click)="onClick()">Logout</button>
     </div>
-    <button type="button" class="btn btn-primary btn-lg" (click)="onClick()">Logout</button>
+
+    <div class="bottomDiv">
+        <div class="col-xs-12 bpIntake">
+            <h4 class="text-primary"><h3>Enter your daily blood pressure below</h3></h4>
+            <form #bpForm="ngForm" (ngSubmit)="onSubmit(bpForm)">
+                <div class="form-group">
+                    <label for="bp"><h3>Blood Pressure</h3></label>
+                    <input type="bp" id="bp" class="form-control" ngModel name="bp" required/>
+                </div>
+                <div class="form-group">
+                    <label for="date"><h3>Date</h3></label>
+                    <input type="date" id="date" class="form-control" ngModel name="date" required/>
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-lg" type="submit" [disabled]="!bpForm.valid">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>  
 </div>
 
 
