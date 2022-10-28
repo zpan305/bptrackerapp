@@ -18,6 +18,9 @@ export class PatientComponent implements OnInit {
   patientEmail: string;
   patientExist: boolean = true;
 
+  patientBp: string;
+  patientBpRecordDate: string;
+
   constructor(private emailService: EmailService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
@@ -41,6 +44,8 @@ export class PatientComponent implements OnInit {
         this.patientName = res['Name'];
         this.patientAge = res['Age'];
         this.patientGender = res['Gender'];
+        this.patientBp = res['BloodPressure'];
+        this.patientBpRecordDate = res['BloodPressureRecordDate'];
       }
     });
   }
@@ -63,6 +68,24 @@ export class PatientComponent implements OnInit {
     });
 
     form.reset();
+  }
+
+  onSend(form: NgForm) {
+    if (!form.valid) {
+      return;
+    }
+    this.patientBp = form.value.bp;
+    this.patientBpRecordDate = form.value.date;
+
+    this.http.patch('https://high-blood-pressure-tracker-default-rtdb.firebaseio.com/' + this.patientEmail.replace('.', '') + '.json', {
+      "BloodPressure": this.patientBp,
+      "BloodPressureRecordDate": this.patientBpRecordDate
+    }).subscribe(res => {
+      this.patientExist = true;
+      console.log(res);
+    });
+
+    form.reset();    
   }
 
   onClick() {
