@@ -14,7 +14,7 @@
     <div class="bottomDiv">
         <div class="col-xs-12 bpIntake">
             <h4 class="text-primary"><h3>Enter your daily blood pressure below</h3></h4>
-            <form #bpForm="ngForm" (ngSubmit)="onSend(bpForm)">
+            <form #bpForm="ngForm" (ngSubmit)="onSendBpData(bpForm)">
                 <div class="form-group">
                     <label for="bp"><h3>Blood Pressure</h3></label>
                     <input type="bp" id="bp" class="form-control" ngModel name="bp" required/>
@@ -30,8 +30,7 @@
                 </div>
             </form>
         </div>
-        <p>{{ patientBp }}</p>
-        <p>{{ patientBpRecordDate }}</p>
+        <p>{{ measureAndDate }}</p>
     </div>  
 </div>
 

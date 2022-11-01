@@ -18,8 +18,8 @@ export class PatientComponent implements OnInit {
   patientEmail: string;
   patientExist: boolean = true;
 
-  patientBp: string;
-  patientBpRecordDate: string;
+  paitentBpAndMeasureDateList: any[];
+  measureAndDate: string;
 
   constructor(private emailService: EmailService, private http: HttpClient, private router: Router) {}
 
@@ -44,8 +44,13 @@ export class PatientComponent implements OnInit {
         this.patientName = res['Name'];
         this.patientAge = res['Age'];
         this.patientGender = res['Gender'];
-        this.patientBp = res['BloodPressure'];
-        this.patientBpRecordDate = res['BloodPressureRecordDate'];
+        if(res['BloodPressureAndDate'] === undefined) {
+          this.paitentBpAndMeasureDateList = [];
+        }
+        else {
+          this.paitentBpAndMeasureDateList = res['BloodPressureAndDate'];
+        }
+        this.measureAndDate = JSON.stringify(this.paitentBpAndMeasureDateList);
       }
     });
   }
@@ -70,18 +75,23 @@ export class PatientComponent implements OnInit {
     form.reset();
   }
 
-  onSend(form: NgForm) {
+  onSendBpData(form: NgForm) {
     if (!form.valid) {
       return;
     }
-    this.patientBp = form.value.bp;
-    this.patientBpRecordDate = form.value.date;
+    let patientBp: string = form.value.bp;
+    let patientBpRecordDate: string = form.value.date;
+
+    this.paitentBpAndMeasureDateList.push({
+      "bp": patientBp,
+      "measureDate": patientBpRecordDate
+    });
 
     this.http.patch('https://high-blood-pressure-tracker-default-rtdb.firebaseio.com/' + this.patientEmail.replace('.', '') + '.json', {
-      "BloodPressure": this.patientBp,
-      "BloodPressureRecordDate": this.patientBpRecordDate
+      "BloodPressureAndDate": this.paitentBpAndMeasureDateList,
     }).subscribe(res => {
       this.patientExist = true;
+      this.measureAndDate = JSON.stringify(this.paitentBpAndMeasureDateList);
       console.log(res);
     });
 
