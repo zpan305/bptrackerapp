@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ChartDataSets, ChartOptions } from 'chart.js';
+// import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
 import { EmailService } from '../shared/email.service';
