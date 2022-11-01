@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
+
 import { EmailService } from '../shared/email.service';
 
 @Component({
@@ -11,6 +14,26 @@ import { EmailService } from '../shared/email.service';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
+  graphDataExist: boolean = false;
+
+  graphData: Object[] = [];
+
+  graphLabels: string[] = [];
+
+  graphType = 'line';
+
+  graphLegend: boolean = true;
+
+	graphOptions: Object = {
+    responsive: true
+  };
+
+  graphColors: Color[] = [
+    {
+      borderColor:'#5A5A5A',
+      backgroundColor: '#ffc0cb'
+    }
+  ];
 
   patientName: string;
   patientGender: string;
@@ -18,7 +41,7 @@ export class PatientComponent implements OnInit {
   patientEmail: string;
   patientExist: boolean = true;
 
-  paitentBpAndMeasureDateList: any[];
+  paitentBpAndMeasureDateList: Object[] = [];
   measureAndDate: string;
 
   constructor(private emailService: EmailService, private http: HttpClient, private router: Router) {}
@@ -49,6 +72,24 @@ export class PatientComponent implements OnInit {
         }
         else {
           this.paitentBpAndMeasureDateList = res['BloodPressureAndDate'];
+          console.log(this.paitentBpAndMeasureDateList);
+          let gData = [];
+          let gLabels = [];
+          for (let data of this.paitentBpAndMeasureDateList) {
+            gData.push(data['bp']);
+            gLabels.push(data['measureDate']);
+          }
+          console.log(gData);
+          console.log(gLabels);
+          this.graphData = [
+            {
+              data: gData,
+              label: 'Blood Pressure'
+            }
+          ];
+          this.graphLabels = gLabels;
+          this.graphDataExist = true;
+          console.log(this.graphData);
         }
         this.measureAndDate = JSON.stringify(this.paitentBpAndMeasureDateList);
       }
@@ -91,11 +132,12 @@ export class PatientComponent implements OnInit {
       "BloodPressureAndDate": this.paitentBpAndMeasureDateList,
     }).subscribe(res => {
       this.patientExist = true;
+      this.fetchPatientData();   
       this.measureAndDate = JSON.stringify(this.paitentBpAndMeasureDateList);
       console.log(res);
-    });
+    }); 
 
-    form.reset();    
+    form.reset();   
   }
 
   onClick() {

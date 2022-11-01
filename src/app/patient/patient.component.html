@@ -32,6 +32,17 @@
         </div>
         <p>{{ measureAndDate }}</p>
     </div>  
+
+    <div *ngIf="graphDataExist">
+        <canvas baseChart 
+            [datasets]="graphData" 
+            [labels]="graphLabels" 
+            [options]="graphOptions"
+            [colors]="graphColors" 
+            [legend]="graphLegend" 
+            [chartType]="graphType">
+        </canvas>
+    </div>
 </div>
 
 
