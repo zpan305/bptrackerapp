@@ -57,6 +57,10 @@ export class PatientComponent implements OnInit {
     this.fetchPatientData();
   }
 
+  sortByDate(a: any, b: any) {
+    return new Date(a.measureDate).getTime() - new Date(b.measureDate).getTime();
+  }
+
   fetchPatientData() {
     this.http.get('https://high-blood-pressure-tracker-default-rtdb.firebaseio.com/' + this.patientEmail.replace('.', '') + '.json')
     .subscribe(res => {
@@ -74,6 +78,7 @@ export class PatientComponent implements OnInit {
         else {
           this.paitentBpAndMeasureDateList = res['BloodPressureAndDate'];
           console.log(this.paitentBpAndMeasureDateList);
+          this.paitentBpAndMeasureDateList.sort(this.sortByDate);
           let gData = [];
           let gLabels = [];
           for (let data of this.paitentBpAndMeasureDateList) {
