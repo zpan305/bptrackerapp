@@ -31,10 +31,7 @@
             </form>
         </div>
         <!-- <p>{{ measureAndDate }}</p> -->
-    </div>  
-
-    <div *ngIf="graphDataExist">
-        <canvas baseChart 
+        <canvas *ngIf="graphDataExist" baseChart
             [datasets]="graphData" 
             [labels]="graphLabels" 
             [options]="graphOptions"
@@ -42,7 +39,7 @@
             [legend]="graphLegend" 
             [chartType]="graphType">
         </canvas>
-    </div>
+    </div>  
 </div>
 
 

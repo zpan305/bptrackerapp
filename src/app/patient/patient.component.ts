@@ -25,7 +25,8 @@ export class PatientComponent implements OnInit {
   graphLegend: boolean = true;
 
 	graphOptions: Object = {
-    responsive: true
+    responsive: true,
+    maintainAspectRatio: false
   };
 
   graphColors: Color[] = [
