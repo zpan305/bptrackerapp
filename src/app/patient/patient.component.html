@@ -47,6 +47,16 @@
                 </td>
             </tr>
         </table>
+        <div class="finalSection" *ngIf="graphDataExist">
+            <h3>Patient Analysis</h3>
+            <div class="analysis text-center">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item analysisItem"><h3>Average Blood Pressure: {{ patientName }} mmHg</h3></li>
+                  <li class="list-group-item analysisItem"><h3>Blood Pressure Category: {{ patientGender }}</h3></li>
+                  <li class="list-group-item analysisItem"><h3>What To Do: {{ patientAge }}</h3></li>
+                </ul>
+            </div>
+        </div>        
     </div>  
 </div>
 

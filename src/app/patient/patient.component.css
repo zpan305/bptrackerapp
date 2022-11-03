@@ -35,3 +35,19 @@
     width: 1000px !important;
     margin-left: 100px !important;
 }
+
+.analysis {
+    margin: 20px auto;
+    width: 80%;
+    padding: 10px;
+    background-color: #37d218;    
+}
+
+.finalSection {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.list-group-item.analysisItem {
+    background-color: #e95d74;
+}
