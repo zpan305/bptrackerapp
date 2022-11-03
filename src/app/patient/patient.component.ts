@@ -14,6 +14,12 @@ import { EmailService } from '../shared/email.service';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
+  action: string;
+
+  patientAverageBp: number;
+
+  bPcategory: string;
+
   graphDataExist: boolean = false;
 
   graphData: Object[] = [];
@@ -57,6 +63,29 @@ export class PatientComponent implements OnInit {
     this.fetchPatientData();
   }
 
+  setBpType (bPNum: number){
+    if (bPNum < 120) {
+      this.bPcategory = "Normal";
+      this.action = "Maintain or adopt a healthy lifestyle.";
+    }
+    else if (bPNum <= 129) {
+      this.bPcategory = "Elevated";
+      this.action = "Maintain or adopt a healthy lifestyle.";
+    }
+    else if (bPNum <= 139) {
+      this.bPcategory = "High Blood Pressure (Hypertension) Stage 1";
+      this.action = "Maintain or adopt a healthy lifestyle. Talk to your provider about taking one or more medications.";
+    }
+    else if (bPNum <= 179) {
+      this.bPcategory = "High Blood Pressure (Hypertension) Stage 2";
+      this.action = "Maintain or adopt a healthy lifestyle. Talk to your provider about taking more than one medication.";
+    }
+    else {
+      this.bPcategory = "Hypertensive Crisis";
+      this.action = "Consult your doctor immediately!";
+    }
+  }
+
   sortByDate(a: any, b: any) {
     return new Date(a.measureDate).getTime() - new Date(b.measureDate).getTime();
   }
@@ -76,6 +105,9 @@ export class PatientComponent implements OnInit {
           this.paitentBpAndMeasureDateList = [];
         }
         else {
+          let totalBp = 0;
+          let count = 0;
+
           this.paitentBpAndMeasureDateList = res['BloodPressureAndDate'];
           console.log(this.paitentBpAndMeasureDateList);
           this.paitentBpAndMeasureDateList.sort(this.sortByDate);
@@ -84,7 +116,13 @@ export class PatientComponent implements OnInit {
           for (let data of this.paitentBpAndMeasureDateList) {
             gData.push(data['bp']);
             gLabels.push(data['measureDate']);
+            totalBp += +data['bp'];
+            count += 1;
           }
+          this.patientAverageBp = totalBp / count;
+          this.setBpType(this.patientAverageBp);
+          console.log(totalBp);
+          console.log(count);
           console.log(gData);
           console.log(gLabels);
           this.graphData = [
