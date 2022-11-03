@@ -22,11 +22,16 @@
 }
 
 .bpIntake {
-    width: 30%;
+    width: 84%;
     margin-bottom: 100px;
     margin-left: 100px;
 }
 
 .bottomDiv {
     margin-top: 100px;
+}
+
+.chart {
+    width: 1000px !important;
+    margin-left: 100px !important;
 }
