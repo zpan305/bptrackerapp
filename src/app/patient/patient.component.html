@@ -1,6 +1,6 @@
 <div *ngIf="patientExist">
     <div class="logout">
-        <h3>Patient Profile</h3>
+        <h1>Patient Profile</h1>
         <div class="card text-center">
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><h3>Patient Name: {{ patientName }}</h3></li>
@@ -48,7 +48,7 @@
             </tr>
         </table>
         <div class="finalSection" *ngIf="graphDataExist">
-            <h3>Patient Analysis</h3>
+            <h1>Patient Analysis</h1>
             <div class="analysis text-center">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item analysisItem"><h3>Average Blood Pressure: {{ patientAverageBp }} mmHg</h3></li>
@@ -56,7 +56,73 @@
                   <li class="list-group-item analysisItem"><h3>What To Do: {{ action }}</h3></li>
                 </ul>
             </div>
-        </div>        
+        </div>     
+
+        <h1 *ngIf="graphDataExist" style="text-align:center;margin-top:100px;margin-bottom:50px;">Healthy Lifestyle Advice</h1>
+        <table *ngIf="graphDataExist" style="margin-bottom:50px;">
+            <tr>
+                <td style="left: 16%; position: relative;">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <img src="../../assets/sodium.png" alt="sodium" style="width:200px;height:200px;">
+                          </div>
+                          <div class="flip-card-back">
+                            <h1>Follow a low-sodium diet</h1>
+                          </div>
+                        </div>
+                    </div>    
+                </td>
+                <td style="left: 33%; position: relative;">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <img src="../../assets/beer.png" alt="alcohol" style="width:200px;height:200px;">
+                          </div>
+                          <div class="flip-card-back">
+                            <h1>Lower your alcohol intake</h1>
+                          </div>
+                        </div>
+                    </div>                        
+                </td>
+                <td style="left: 50%; position: relative;">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <img src="../../assets/capsules.png" alt="medication" style="width:200px;height:200px;">
+                          </div>
+                          <div class="flip-card-back">
+                            <h2>Take your BP medications at the same time every day</h2>
+                          </div>
+                        </div>
+                    </div>                        
+                </td>    
+                <td style="left: 66%; position: relative;">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <img src="../../assets/relaxation.png" alt="relax" style="width:200px;height:200px;">
+                          </div>
+                          <div class="flip-card-back">
+                            <h1>Try to reduce stress</h1>
+                          </div>
+                        </div>
+                    </div>                        
+                </td> 
+                <td style="left: 83%; position: relative;">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front">
+                            <img src="../../assets/triangle.png" alt="medication" style="width:200px;height:200px;">
+                          </div>
+                          <div class="flip-card-back">
+                            <h1>Exercise at least 30 minutes every day</h1>
+                          </div>
+                        </div>
+                    </div>                        
+                </td>                                             
+            </tr>
+        </table>
     </div>  
 </div>
 
